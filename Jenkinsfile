@@ -4,7 +4,6 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'nerender/wms-mcp-server'
-        IMAGE_TAG = ''
     }
 
     stages {
