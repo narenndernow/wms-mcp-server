@@ -33,16 +33,23 @@ pipeline {
 
 
 
-
-
-        stage('Build Docker Image') {
-            steps {
-                sh '''
-                    docker build \
-                      -t ${IMAGE_NAME}:${IMAGE_TAG} .
-                '''
+stage('Build Docker Image') {
+    steps {
+        script {
+            if (!env.IMAGE_TAG?.trim()) {
+                error("IMAGE_TAG is empty!")
             }
+
+            sh """
+                docker build -t ${env.IMAGE_NAME}:${env.IMAGE_TAG} .
+            """
         }
+    }
+}
+
+
+
+
 
         stage('Push to Docker Hub') {
             steps {
